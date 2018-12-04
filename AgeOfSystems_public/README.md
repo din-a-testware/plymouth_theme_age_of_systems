@@ -22,10 +22,11 @@ To add your own preferred Text just add it into the array, I think it's self-exp
 Same goes for the hint text:
     text_hint_array = [["Tip:\nHit \"escape\" to show console output."]];
 
-To use the text change the number in the first brackets to the desired ID. The number in the second brackets stands for: 0 - Title, 1 - Description.
+To use the text change the number in the first brackets to the desired ID. The number in the second brackets stands for: 0 - Title, 1 - Description. Hint text follows the same system.
     title_text = text_array[0][0];
     description_text = text_array[0][1];
-    text_hint = text_hint_array[0][0];
+    text_hint_title = text_hint_array[0][0];
+    text_hint = text_hint_array[0][1];
 
 The Background-Image is named "background_XX.png". The XX stands for a certain number, beginning with "0" ("background_0.png")
 It's intended that you can use different backgrounds without the need to rename it. In the future there eventually may be a random generator which selects between the files, but at the moment this is not working.

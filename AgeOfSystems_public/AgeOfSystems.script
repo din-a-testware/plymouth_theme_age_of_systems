@@ -14,16 +14,18 @@ textbox_bottom_height = 60;
 
 
 # --- Set text variables
-text_array = [["Die Nemedischen Chroniken","Wisse, o Prinz, dass zwischen den Jahren,\nals die Ozeane Atlantis und die strahlenden Städte\nverschlangen, und jener Zeit, als die Söhne\nvon Aryas aufstiegen, ein unbekanntes Zeitalter\nexistierte, in dem auf der Welt\nprachtvolle Königreiche wie kostbare Tücher\nunter den Sternen\nausgebreitet lagen ..."],
+text_array = [["Die Nemedischen Chroniken","Wisse, o Prinz, dass zwischen den Jahren,\nals die Ozeane Atlantis und die strahlenden Städte\nverschlangen, und jener Zeit, als die Söhne\nvon Aryas aufstiegen, ein unbekanntes Zeitalter\nexistierte, in dem auf der Welt\nprachtvolle Königreiche wie kostbare Tücher\nunter den Sternen ausgebreitet lagen ..."],
              ["The Nemedian Chronicles","Know, O prince, that between the years \nwhen the oceans drank Atlantis and the gleaming cities,\nand the years of the rise of the Sons of Aryas\nthere was an Age undreamed of,\nwhen shining kingdoms lay spread across the world\nlike blue mantles beneath the stars \.\.\."],
              ["Tarantia","Von den Chronisten wird die Hauptstadt\nAquiloniens als die „Prunkvollste Stadt der\nwestlichen Welt“ bezeichnet. Ihre Silhouette lässt\nblaue sowie goldene Türme erahnen und\nviele Gebäude geben einen sauberen\, \ngar makellosen Anblick\."]];             
 
-text_hint_array = [["Tipp:\n\"Escape\" drücken um die Console-ausgabe zu sehen."],
-             ["Tip:\nHit \"escape\" to show console output."]];
+text_hint_array = [["Tip:","Hit \"escape\" to show console output."],
+             ["Tipp:","\"Escape\" drücken um die Console-ausgabe zu sehen."]];
              
 title_text = text_array[0][0];
 description_text = text_array[0][1];
-text_hint = text_hint_array[0][0];
+text_hint_title = text_hint_array[0][0];
+text_hint = text_hint_array[0][1];
+
 
 # --- Set background image
 
@@ -250,11 +252,17 @@ bottom_text_center_sprite.SetPosition(textbox_bottom_distance_left + bottom_text
 
 # ---------- ADD CONTENT TO TEXT BOXES ------------------------------
 
+# --- Set hint title
+bottom_text_top_hint_2 = Image.Text (text_hint_title, 0.671875, 0.671875, 0.671875, 1.0, "Sans 12", "left");
+bottom_text_top_hint_2_sprite = Sprite(bottom_text_top_hint_2);
+bottom_text_top_hint_2_sprite.SetPosition(textbox_bottom_distance_left + bottom_text_left_image.GetWidth(),textbox_bottom_distance_top+bottom_text_top_image.GetHeight()/2+bottom_text_topleft_image.GetHeight()/2+bottom_text_bottomleft_image.GetHeight()/2-bottom_text_top_hint_2.GetHeight(), 60);
+
+
 # --- Set hint text
 bottom_text_top_hint = Image.Text (text_hint, 0.671875, 0.671875, 0.671875, 1.0, "Sans 12", "left");
 bottom_text_top_hint_sprite = Sprite(bottom_text_top_hint);
-bottom_text_top_hint_sprite.SetPosition(textbox_bottom_distance_left + bottom_text_topleft_image.GetWidth()/2+bottom_scaled_text_top_image.GetWidth()/2+bottom_text_topright_image.GetWidth()/2 - bottom_text_top_hint.GetWidth()/2,textbox_bottom_distance_top+bottom_text_top_image.GetHeight()/2+bottom_text_topleft_image.GetHeight()/2+bottom_text_bottomleft_image.GetHeight()/2-bottom_text_top_hint.GetHeight()/2, 60);
-#bottom_text_top_hint_sprite.SetPosition(textbox_top_distance_left + text_topleft_image.GetWidth()/2+scaled_text_top_image.GetWidth()/2+text_topright_image.GetWidth()/2 - text_top_description.GetWidth()/2,textbox_bottom_distance_top+bottom_text_top_image.GetHeight()/2+bottom_text_topleft_image.GetHeight()/2+bottom_text_bottomleft_image.GetHeight()/2-bottom_text_top_hint.GetHeight()/2, 60);
+bottom_text_top_hint_sprite.SetPosition(textbox_bottom_distance_left + bottom_text_left_image.GetWidth(),textbox_bottom_distance_top+bottom_text_top_image.GetHeight()/2+bottom_text_topleft_image.GetHeight()/2+bottom_text_bottomleft_image.GetHeight()/2-bottom_text_top_hint.GetHeight()+bottom_text_top_hint_2.GetHeight(), 60);
+
 
 
 # --- Set title text
