@@ -1,0 +1,350 @@
+# This is a Plymouth theme based on the game "Age of Conan".
+
+
+# --- Set distances and sizes of the text boxes
+textbox_top_distance_left=20;
+textbox_top_distance_top = 100;
+textbox_top_width = 420;
+textbox_top_height= 420;
+
+textbox_bottom_distance_left = textbox_top_distance_left;
+textbox_bottom_distance_top = textbox_top_distance_top + textbox_top_height + 50;
+textbox_bottom_width = textbox_top_width;
+textbox_bottom_height = 60;
+
+
+# --- Set text variables
+text_array = [["Die Nemedischen Chroniken","Wisse, o Prinz, dass zwischen den Jahren,\nals die Ozeane Atlantis und die strahlenden Städte\nverschlangen, und jener Zeit, als die Söhne\nvon Aryas aufstiegen, ein unbekanntes Zeitalter\nexistierte, in dem auf der Welt\nprachtvolle Königreiche wie kostbare Tücher\nunter den Sternen\nausgebreitet lagen ..."],
+             ["The Nemedian Chronicles","Know, O prince, that between the years \nwhen the oceans drank Atlantis and the gleaming cities,\nand the years of the rise of the Sons of Aryas\nthere was an Age undreamed of,\nwhen shining kingdoms lay spread across the world\nlike blue mantles beneath the stars \.\.\."],
+             ["Tarantia","Von den Chronisten wird die Hauptstadt\nAquiloniens als die „Prunkvollste Stadt der\nwestlichen Welt“ bezeichnet. Ihre Silhouette lässt\nblaue sowie goldene Türme erahnen und\nviele Gebäude geben einen sauberen\, \ngar makellosen Anblick\."]];             
+
+text_hint_array = [["Tipp:\n\"Escape\" drücken um die Console-ausgabe zu sehen."],
+             ["Tip:\nHit \"escape\" to show console output."]];
+             
+title_text = text_array[0][0];
+description_text = text_array[0][1];
+text_hint = text_hint_array[0][0];
+
+# --- Set background image
+
+# --- Max Number of Background image file ("background_XX.png")
+bg_image_count = 56;
+
+# --- Negative: Move to the left, Positive: Move to the right
+bg_image_shift_x = 0;
+# --- Negative: Move down, Positive: Move up
+bg_image_shift_y = 0;
+# --- Zoom horizontal (Min. 0.0, Standard 1)
+bg_image_zoom_width = 1;
+# --- Zoom vertical (Min. 0.0, Standard 1)
+bg_image_zoom_height = 1;
+
+# --- Random numbers don't work at the moment, always returns the same number
+#random_num = Math.Random();
+#random_int;
+#if (random_num <0.1) {
+#    random_int = Math.Int(random_num*100);
+#} else if(random_num == 0.1) {
+#    random_int = Math.Int(random_num*10);
+#} else if(random_num > 0.1) {
+#    random_int= Math.Int(random_num*100);
+#} else if(random_num == 1.0 || random_num == 0.0 || random_num == 0 || random_num == 1) {
+#    random_int = random_num;
+#}
+#random_result = Math.Clamp(random_int,0,bg_image_count);
+#bgimage = "background_"+random_result+".png";
+
+# --- Set number of background image file
+bgnumber = 1;
+bgimage_file = "background_"+bgnumber+".png";
+background_image = Image(bgimage_file);
+background_image_ratio = background_image.GetHeight() / background_image.GetWidth();
+
+
+screen_ratio = Window.GetHeight() / Window.GetWidth();
+if (screen_ratio > background_image_ratio)
+  {  # Screen ratio is taller than image ratio, we will match the screen height
+     scale_factor =  Window.GetHeight() / background_image.GetHeight();
+  }
+else
+  {  # Screen ratio is wider than image ratio, we will match the screen width
+     scale_factor =  Window.GetWidth() / background_image.GetWidth();
+  }
+scaled_background_image = background_image.Scale((background_image.GetWidth()  * scale_factor)*bg_image_zoom_width,
+                                         (background_image.GetHeight() * scale_factor)*bg_image_zoom_height);
+background_sprite = Sprite(scaled_background_image); # Create the a sprite using the scaled image
+background_sprite.SetX((Window.GetWidth()  / 2 - scaled_background_image.GetWidth()  / 2)+bg_image_shift_x); # Place in the centre 
+background_sprite.SetY((Window.GetHeight() / 2 - scaled_background_image.GetHeight() / 2)+bg_image_shift_y);
+background_sprite.SetZ(-10000); # Place right at the back
+
+
+
+
+# --- Set progress bar background
+progress_background = Image("progress_background.png");
+scaled_progress_background = progress_background.Scale(Window.GetWidth(),progress_background.GetHeight());
+progress_background_sprite = Sprite(scaled_progress_background);
+progress_background_sprite.SetPosition(0, Window.GetHeight() - 87, 1);
+
+
+# --- Set the top border
+border_top = Image("border_top.png");
+scaled_border_top = border_top.Scale(Window.GetWidth(),border_top.GetHeight());
+border_top_sprite = Sprite(scaled_border_top);
+border_top_sprite.SetPosition(0, 0, 2);
+
+
+
+# ---------- TOP TEXT BOX ------------------------------
+
+
+# ---------- TOP
+
+# --- Set top_left border
+text_topleft_image = Image("text_topleft.png");
+text_topleft_sprite = Sprite(text_topleft_image);
+text_topleft_sprite.SetPosition(textbox_top_distance_left, textbox_top_distance_top, 10);
+
+
+# --- Set top_right border
+text_topright_image = Image("text_topright.png");
+text_topright_sprite = Sprite(text_topright_image);
+text_topright_sprite.SetPosition(textbox_top_width, textbox_top_distance_top, 10);
+
+
+# --- Set top border
+text_top_image = Image("text_top.png");
+scaled_text_top_image = text_top_image.Scale(text_topright_sprite.GetX()-text_topleft_sprite.GetX()-text_topleft_image.GetWidth(),text_top_image.GetHeight());
+text_top_sprite = Sprite(scaled_text_top_image);
+text_top_sprite.SetPosition(textbox_top_distance_left + text_topleft_image.GetWidth(), textbox_top_distance_top, 10);
+
+
+# ---------- BOTTOM
+
+# --- Set bottom_left border
+text_bottomleft_image = Image("text_bottomleft.png");
+text_bottomleft_sprite = Sprite(text_bottomleft_image);
+text_bottomleft_sprite.SetPosition(textbox_top_distance_left, textbox_top_distance_top+textbox_top_height, 10);
+
+
+# --- Set bottom_right border
+text_bottomright_image = Image("text_bottomright.png");
+text_bottomright_sprite = Sprite(text_bottomright_image);
+text_bottomright_sprite.SetPosition(textbox_top_width, textbox_top_distance_top+textbox_top_height, 10);
+
+
+# --- Set bottom border
+text_bottom_image = Image("text_bottom.png");
+scaled_text_bottom_image = text_bottom_image.Scale(text_bottomright_sprite.GetX()-text_bottomleft_sprite.GetX()-text_bottomleft_image.GetWidth(),text_bottom_image.GetHeight());
+text_bottom_sprite = Sprite(scaled_text_bottom_image);
+text_bottom_sprite.SetPosition(textbox_top_distance_left + text_bottomleft_image.GetWidth(), textbox_top_distance_top+textbox_top_height, 10);
+
+
+# ----------- CENTER 
+
+# --- Set left border
+text_left_image = Image("text_left.png");
+scaled_text_left_image = text_left_image.Scale(text_left_image.GetWidth(),text_bottomleft_sprite.GetY()-text_topleft_image.GetHeight()-textbox_top_distance_top);
+text_left_sprite = Sprite(scaled_text_left_image);
+text_left_sprite.SetPosition(textbox_top_distance_left, textbox_top_distance_top+text_topleft_image.GetHeight(), 10);
+
+
+# --- Set right border
+text_right_image = Image("text_right.png");
+scaled_text_right_image = text_right_image.Scale(text_right_image.GetWidth(),text_bottomright_sprite.GetY()-text_topright_image.GetHeight()-textbox_top_distance_top);
+text_right_sprite = Sprite(scaled_text_right_image);
+text_right_sprite.SetPosition(textbox_top_width, textbox_top_distance_top+text_topright_image.GetHeight(), 10);
+
+
+# --- Set center image
+text_center_image = Image("text_background.png");
+scaled_text_center_image = text_center_image.Scale(text_topright_sprite.GetX()-text_topleft_sprite.GetX()-text_topleft_image.GetWidth(),text_bottom_sprite.GetY()-text_top_image.GetHeight()-textbox_top_distance_top);
+text_center_sprite = Sprite(scaled_text_center_image);
+text_center_sprite.SetPosition(textbox_top_distance_left + text_left_image.GetWidth(), textbox_top_distance_top+text_top_image.GetHeight(), 10);
+
+
+# ----------- LOGO
+logo_small_image = Image("logo_small.png");
+logo_small_sprite = Sprite(logo_small_image);
+logo_small_sprite.SetPosition(textbox_top_distance_left + text_topleft_image.GetWidth()/2+scaled_text_top_image.GetWidth()/2+text_topright_image.GetWidth()/2 - logo_small_image.GetWidth()/2,textbox_top_distance_top+text_top_image.GetHeight(), 60);
+
+
+# ----------------------------------------------
+
+
+
+
+
+
+
+# ---------- BOTTOM TEXT BOX ------------------------------
+
+
+# ---------- TOP
+
+
+# --- Set top_left border
+bottom_text_topleft_image = Image("text_topleft.png");
+bottom_text_topleft_sprite = Sprite(bottom_text_topleft_image);
+bottom_text_topleft_sprite.SetPosition(textbox_bottom_distance_left, textbox_bottom_distance_top, 10);
+
+
+# --- Set top_right border
+bottom_text_topright_image = Image("text_topright.png");
+bottom_text_topright_sprite = Sprite(bottom_text_topright_image);
+bottom_text_topright_sprite.SetPosition(textbox_bottom_width, textbox_bottom_distance_top, 10);
+
+
+# --- Set top border
+bottom_text_top_image = Image("text_top.png");
+bottom_scaled_text_top_image = bottom_text_top_image.Scale(bottom_text_topright_sprite.GetX()-bottom_text_topleft_sprite.GetX()-bottom_text_topleft_image.GetWidth(),bottom_text_top_image.GetHeight());
+bottom_text_top_sprite = Sprite(bottom_scaled_text_top_image);
+bottom_text_top_sprite.SetPosition(textbox_bottom_distance_left + bottom_text_topleft_image.GetWidth(), textbox_bottom_distance_top, 10);
+
+
+# ---------- BOTTOM
+
+# --- Set bottom_left border
+bottom_text_bottomleft_image = Image("text_bottomleft.png");
+bottom_text_bottomleft_sprite = Sprite(bottom_text_bottomleft_image);
+bottom_text_bottomleft_sprite.SetPosition(textbox_bottom_distance_left, textbox_bottom_distance_top+textbox_bottom_height, 10);
+
+
+# --- Set bottom_right border
+bottom_text_bottomright_image = Image("text_bottomright.png");
+bottom_text_bottomright_sprite = Sprite(bottom_text_bottomright_image);
+bottom_text_bottomright_sprite.SetPosition(textbox_bottom_width, textbox_bottom_distance_top+textbox_bottom_height, 10);
+
+
+# --- Set bottom border
+bottom_text_bottom_image = Image("text_bottom.png");
+bottom_scaled_text_bottom_image = bottom_text_bottom_image.Scale(bottom_text_bottomright_sprite.GetX()-bottom_text_bottomleft_sprite.GetX()-bottom_text_bottomleft_image.GetWidth(),bottom_text_bottom_image.GetHeight());
+bottom_text_bottom_sprite = Sprite(bottom_scaled_text_bottom_image);
+bottom_text_bottom_sprite.SetPosition(textbox_bottom_distance_left + bottom_text_bottomleft_image.GetWidth(), textbox_bottom_distance_top+textbox_bottom_height, 10);
+
+
+# ---------- CENTER
+
+# --- Set left border
+bottom_text_left_image = Image("text_left.png");
+bottom_scaled_text_left_image = bottom_text_left_image.Scale(bottom_text_left_image.GetWidth(),bottom_text_bottomleft_sprite.GetY()-bottom_text_topleft_image.GetHeight()-textbox_bottom_distance_top);
+bottom_text_left_sprite = Sprite(bottom_scaled_text_left_image);
+bottom_text_left_sprite.SetPosition(textbox_bottom_distance_left, textbox_bottom_distance_top+bottom_text_topleft_image.GetHeight(), 10);
+
+
+# --- Set right border
+bottom_text_right_image = Image("text_right.png");
+bottom_scaled_text_right_image = bottom_text_right_image.Scale(bottom_text_right_image.GetWidth(),bottom_text_bottomright_sprite.GetY()-bottom_text_topright_image.GetHeight()-textbox_bottom_distance_top);
+bottom_text_right_sprite = Sprite(bottom_scaled_text_right_image);
+bottom_text_right_sprite.SetPosition(textbox_bottom_width, textbox_bottom_distance_top+bottom_text_topright_image.GetHeight(), 10);
+
+
+# --- Set center image
+bottom_text_center_image = Image("text_background.png");
+bottom_scaled_text_center_image = bottom_text_center_image.Scale(bottom_text_topright_sprite.GetX()-bottom_text_topleft_sprite.GetX()-bottom_text_topleft_image.GetWidth(),bottom_text_bottom_sprite.GetY()-bottom_text_top_image.GetHeight()-textbox_bottom_distance_top);
+bottom_text_center_sprite = Sprite(bottom_scaled_text_center_image);
+bottom_text_center_sprite.SetPosition(textbox_bottom_distance_left + bottom_text_left_image.GetWidth(), textbox_bottom_distance_top+bottom_text_top_image.GetHeight(), 10);
+
+# ----------------------------------------------
+
+
+# ---------- ADD CONTENT TO TEXT BOXES ------------------------------
+
+# --- Set hint text
+bottom_text_top_hint = Image.Text (text_hint, 0.671875, 0.671875, 0.671875, 1.0, "Sans 12", "left");
+bottom_text_top_hint_sprite = Sprite(bottom_text_top_hint);
+bottom_text_top_hint_sprite.SetPosition(textbox_bottom_distance_left + bottom_text_topleft_image.GetWidth()/2+bottom_scaled_text_top_image.GetWidth()/2+bottom_text_topright_image.GetWidth()/2 - bottom_text_top_hint.GetWidth()/2,textbox_bottom_distance_top+bottom_text_top_image.GetHeight()/2+bottom_text_topleft_image.GetHeight()/2+bottom_text_bottomleft_image.GetHeight()/2-bottom_text_top_hint.GetHeight()/2, 60);
+#bottom_text_top_hint_sprite.SetPosition(textbox_top_distance_left + text_topleft_image.GetWidth()/2+scaled_text_top_image.GetWidth()/2+text_topright_image.GetWidth()/2 - text_top_description.GetWidth()/2,textbox_bottom_distance_top+bottom_text_top_image.GetHeight()/2+bottom_text_topleft_image.GetHeight()/2+bottom_text_bottomleft_image.GetHeight()/2-bottom_text_top_hint.GetHeight()/2, 60);
+
+
+# --- Set title text
+text_top_title = Image.Text (title_text, 0.9921875, 0.3359375, 0.015625, 1.0, "Sans 12", "center");
+text_top_title_sprite = Sprite(text_top_title);
+text_top_title_sprite.SetPosition(textbox_top_distance_left + text_topleft_image.GetWidth()/2+scaled_text_top_image.GetWidth()/2+text_topright_image.GetWidth()/2 - text_top_title.GetWidth()/2,textbox_top_distance_top+text_top_image.GetHeight()+logo_small_image.GetHeight()+30, 60);
+
+# --- Set description text
+text_top_description = Image.Text (description_text, 0.671875, 0.671875, 0.671875, 1.0, "Sans 12", "left");
+text_top_description_sprite = Sprite(text_top_description);
+text_top_description_sprite.SetPosition(textbox_top_distance_left + text_topleft_image.GetWidth()/2+scaled_text_top_image.GetWidth()/2+text_topright_image.GetWidth()/2 - text_top_description.GetWidth()/2,textbox_top_distance_top+text_top_image.GetHeight()+logo_small_image.GetHeight()+text_top_title.GetHeight() + 60, 60);
+
+
+# ----------------------------------------------
+
+
+fun refresh_callback ()
+  {
+    # Currently we do nothing here
+  }
+  
+Plymouth.SetRefreshFunction (refresh_callback);
+
+# ---------- PROGRESS BARS ------------------------------
+
+progress_box.image = Image("progress_background.png");
+progress_box.sprite = Sprite(progress_background.image);
+
+progress_box.x = 0;
+progress_box.y = Window.GetHeight() -87;
+progress_box.sprite.SetPosition(progress_box.x, progress_box.y, 100);
+
+progress_bar.original_image = Image("progress_red.png");
+progress_bar.sprite = Sprite();
+
+progress_bar.x = 0;
+progress_bar.y = Window.GetHeight() -65;
+progress_bar.sprite.SetPosition(progress_bar.x, progress_bar.y, 101);
+
+
+# ---------------
+progress_box2.image = Image("progress_background.png");
+progress_box2.sprite = Sprite(progress_background.image);
+
+progress_box2.x = 0;
+progress_box2.y = Window.GetHeight() -87;
+progress_box2.sprite.SetPosition(progress_box2.x, progress_box2.y, 0);
+
+progress_bar2.original_image = Image("progress_yellow.png");
+progress_bar2.sprite = Sprite();
+
+progress_bar2.x = 0;
+progress_bar2.y = Window.GetHeight() -78;
+progress_bar2.sprite.SetPosition(progress_bar2.x, progress_bar2.y, 102);
+
+# -------------
+
+fun progress_callback (duration, progress)
+  {
+    if (progress_bar.image.GetWidth () != Math.Int (progress_bar.original_image.GetWidth () * progress))
+      {
+        progress_bar.image = progress_bar.original_image.Scale(progress_bar.original_image.GetWidth(progress_bar.original_image) * progress, progress_bar.original_image.GetHeight());
+        progress_bar.sprite.SetImage (progress_bar.image);
+        
+        
+        progress_bar2.image = progress_bar2.original_image.Scale(progress_bar2.original_image.GetWidth(progress_bar2.original_image)*2 * progress, progress_bar2.original_image.GetHeight());
+        progress_bar2.sprite.SetImage (progress_bar2.image);
+     
+      }
+  }
+
+Plymouth.SetBootProgressFunction(progress_callback);
+
+# ---------- QUIT ------------------------------
+
+fun quit_callback ()
+{
+}
+
+Plymouth.SetQuitFunction(quit_callback);
+
+# ---------- MESSAGE ------------------------------
+
+message_sprite = Sprite();
+message_sprite.SetPosition(10, 10, 10000);
+
+fun message_callback (text)
+{
+  my_image = Image.Text(text, 1, 1, 1);
+  message_sprite.SetImage(my_image);
+}
+
+Plymouth.SetMessageFunction(message_callback);

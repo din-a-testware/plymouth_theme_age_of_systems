@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Age Of Systems
+Description=This theme is based on the game "Age of Conan". Made by Elio R. Heinrich, downsource@googlemail.com, http://www.sequency.org
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/AgeOfSystems
+ScriptFile=/usr/share/plymouth/themes/AgeOfSystems/AgeOfSystems.script
